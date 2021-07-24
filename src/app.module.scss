@@ -1,0 +1,13 @@
+.mainLayout {
+  width: 1250px;
+  margin: 50px auto;
+
+  min-height: calc(100vh - 64px - 100px);
+
+  @media (max-width: 1366px) {
+    width: 100vw;
+    padding: 15px;
+
+    margin-top: 15px;
+  }
+}
