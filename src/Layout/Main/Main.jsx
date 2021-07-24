@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 
 import Search from '../../Components/Search/Search';
 import Movies from '../../Components/Movies/Movies';
@@ -38,6 +38,7 @@ const Main = () => {
     <Layout.Content className={styles.container}>
       <Search getMovies={getMovies} />
       {loading ? <Spinner /> : <Movies movies={movies} />}
+      <BackTop />
     </Layout.Content>
   );
 };
