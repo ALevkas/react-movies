@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Layout, Typography } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import styles from './header.module.scss';
@@ -8,7 +7,7 @@ const Header = () => (
   <Layout.Header>
     <nav className={styles.nav}>
       <Typography.Title className={styles.title}>
-        <Link to="/">React Movies</Link>
+        <a href="https://allevchenko.ru/react-movies">React Movies</a>
       </Typography.Title>
       <a
         href="https://github.com/ALevkas"
