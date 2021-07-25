@@ -1,6 +1,6 @@
 {
   "name": "react-template",
-  "homepage":  "https://allevchenko.ru/react-movies",
+  "homepage": "https://allevchenko.ru/react-movies",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
