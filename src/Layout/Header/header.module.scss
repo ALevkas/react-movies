@@ -1,9 +1,3 @@
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .title {
   text-align: left;
 
@@ -15,4 +9,9 @@
   @media (max-width: 1366px) {
     text-align: center;
   }
+}
+
+.github {
+  font-size: 26px;
+  color: #fff !important;
 }
