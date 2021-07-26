@@ -15,7 +15,7 @@ const Movie = ({
   };
 
   return (
-    <Col xs={{ span: 24 }} lg={{ span: 6 }}>
+    <Col xs={24} sm={12} lg={8} xl={6}>
       <Card
         id={imdbID}
         cover={

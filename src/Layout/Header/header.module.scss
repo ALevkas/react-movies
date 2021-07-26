@@ -1,6 +1,26 @@
 .header {
-  @media (max-width: 1366px) {
+  @media (max-width: 576px) {
     height: 100%;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media (max-width: 576px) {
+    justify-content: center;
+  }
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media (max-width: 576px) {
+    justify-content: center;
   }
 }
 
@@ -8,7 +28,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 1366px) {
+
+  @media (max-width: 576px) {
     flex-direction: column;
   }
 }
@@ -21,7 +42,7 @@
     color: #fff !important;
   }
 
-  @media (max-width: 1366px) {
+  @media (max-width: 576px) {
     text-align: center;
   }
 }
