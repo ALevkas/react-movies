@@ -1,20 +1,18 @@
 import React from 'react';
-import {
-  Layout, Typography, Row, Col,
-} from 'antd';
+import { Layout, Typography } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 
 import styles from './header.module.scss';
 
 const Header = () => (
-  <Layout.Header>
-    <Row gutter={[16, 16]} className={styles.nav} align="center" justify="space-between">
-      <Col span={22}>
+  <Layout.Header className={styles.header}>
+    <div className={styles.wrapper}>
+      <div>
         <Typography.Title className={styles.title}>
           <a href="https://allevchenko.ru/react-movies">React Movies</a>
         </Typography.Title>
-      </Col>
-      <Col span={2}>
+      </div>
+      <div span={2}>
         <a
           href="https://github.com/ALevkas"
           target="_blank"
@@ -23,8 +21,8 @@ const Header = () => (
         >
           <GithubOutlined className={styles.github} />
         </a>
-      </Col>
-    </Row>
+      </div>
+    </div>
   </Layout.Header>
 );
 
