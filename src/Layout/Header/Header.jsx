@@ -21,7 +21,7 @@ const Header = () => (
           rel="noreferrer"
           title="go to github alevkas page"
         >
-          <GithubOutlined className={styles.github} />
+          <GithubOutlined />
         </a>
       </Col>
     </Row>

@@ -1,6 +1,9 @@
 .header {
-  @media (max-width: 576px) {
-    height: 100%;
+  height: 100% !important;
+
+  a {
+    font-size: 32px;
+    color: #fff !important;
   }
 }
 
@@ -31,19 +34,6 @@
 
   @media (max-width: 576px) {
     flex-direction: column;
-  }
-}
-
-.title {
-  text-align: left;
-
-  a {
-    font-size: 32px;
-    color: #fff !important;
-  }
-
-  @media (max-width: 576px) {
-    text-align: center;
   }
 }
 
