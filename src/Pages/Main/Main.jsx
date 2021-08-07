@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Layout, BackTop } from 'antd';
+
+import { setMovies, setLoaded } from '../../redux/actions/movies';
 
 import Search from '../../Components/Search/Search';
 import Movies from '../../Components/Movies/Movies';
@@ -11,13 +15,20 @@ import styles from './main.module.scss';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const Main = () => {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { items, isLoaded } = useSelector(({ movies }) => ({
+    items: movies.items,
+    isLoaded: movies.isLoaded,
+  }));
 
-  const getMovies = (nameMovie, filter) => {
-    setLoading(true);
+  const [filterValue, setFilterValue] = useState('');
 
-    if (!API_KEY) return;
+  const getMovies = (nameMovie, filter = '') => {
+    if (!API_KEY || (items?.length && filterValue === filter)) return;
+
+    setFilterValue(filter);
+
+    dispatch(setLoaded(false));
 
     axios
       .get(
@@ -25,8 +36,7 @@ const Main = () => {
       )
       .then((res) => {
         const loadingMovies = res.data.Search;
-        setMovies(loadingMovies);
-        setLoading(false);
+        dispatch(setMovies(loadingMovies));
       });
   };
 
@@ -37,9 +47,11 @@ const Main = () => {
   return (
     <Layout.Content className={styles.container}>
       <Search getMovies={getMovies} />
-      {loading ? <Spinner /> : <Movies movies={movies} />}
+
+      {isLoaded ? <Movies movies={items} /> : <Spinner />}
       <BackTop />
     </Layout.Content>
   );
 };
+
 export default Main;

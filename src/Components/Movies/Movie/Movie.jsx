@@ -1,17 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Col, Card, Image, Typography, Skeleton,
+  Col, Card, Image, Typography, Skeleton, message,
 } from 'antd';
-import { PlayCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import {
+  PlayCircleOutlined,
+  QuestionCircleOutlined,
+  PlusCircleOutlined,
+  MinusCircleOutlined,
+} from '@ant-design/icons';
+
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { setAddFavourite, setRemoveFavourite } from '../../../redux/actions/favourites';
 
 import styled from './movie.module.scss';
 
 const Movie = ({
   title, year, poster, imdbID, type,
 }) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
   const onPlay = () => {
     window.open(`https://www.kinopoisk.ru/index.php?kp_query=${title}`);
+  };
+
+  const onAddFavourite = () => {
+    /* todo добавлять в хранилище, сделать кастомный хук, который будет переписывать каждый раз
+      хранилище после добавления фильма в избарнное. */
+
+    dispatch(
+      setAddFavourite({
+        Title: title,
+        Year: year,
+        Poster: poster,
+        imdbID,
+        Type: type,
+      }),
+    );
+  };
+
+  const onRemovedFavourite = () => {
+    /* todo добавить сообщение вы точно хотите удалить и удалять из хранилища. */
+    dispatch(setRemoveFavourite(imdbID));
+
+    message.success(`${title} removed from favourites films`);
   };
 
   return (
@@ -28,7 +62,22 @@ const Movie = ({
         actions={
           type === 'game'
             ? [<QuestionCircleOutlined key="question" title="It's game" />]
-            : [<PlayCircleOutlined key="play" onClick={onPlay} title="Find at kinopoisk" />]
+            : [
+              <PlayCircleOutlined key="play" onClick={onPlay} title="Find at kinopoisk" />,
+              location.pathname !== '/favourites' ? (
+                <PlusCircleOutlined
+                  key="add"
+                  onClick={onAddFavourite}
+                  title="Add to favourites"
+                />
+              ) : (
+                <MinusCircleOutlined
+                  key="add"
+                  onClick={onRemovedFavourite}
+                  title="Remove from favourites"
+                />
+              ),
+            ]
         }
       >
         <div className={styled.meta}>
