@@ -1,7 +1,17 @@
 import { message } from 'antd';
 
+const getInitialArray = () => {
+  const favourites = window.localStorage.getItem('favourites');
+
+  return JSON.parse(favourites) || [];
+};
+
+const setFavouritesInLocal = (favourites) => {
+  window.localStorage.setItem('favourites', JSON.stringify(favourites));
+};
+
 const initalFavouritesState = {
-  favourites: [],
+  favourites: getInitialArray(),
 };
 
 const favourites = (state = initalFavouritesState, action) => {
@@ -17,16 +27,25 @@ const favourites = (state = initalFavouritesState, action) => {
 
     message.success(`${action.payload.Title} added to favourites films`);
 
+    const updateFavourites = [...state.favourites, action.payload];
+    setFavouritesInLocal(updateFavourites);
+
     return {
       ...state,
-      favourites: [...state.favourites, action.payload],
+      favourites: updateFavourites,
     };
   }
 
   if (action.type === 'REMOVE_FAVOURITE') {
+    const updateFavourites = state.favourites.filter(
+      (favourite) => favourite.imdbID !== action.payload,
+    );
+
+    setFavouritesInLocal(updateFavourites);
+
     return {
       ...state,
-      favourites: state.favourites.filter((favourite) => favourite.imdbID !== action.payload),
+      favourites: updateFavourites,
     };
   }
 

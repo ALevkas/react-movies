@@ -27,9 +27,6 @@ const Movie = ({
   };
 
   const onAddFavourite = () => {
-    /* todo добавлять в хранилище, сделать кастомный хук, который будет переписывать каждый раз
-      хранилище после добавления фильма в избарнное. */
-
     dispatch(
       setAddFavourite({
         Title: title,
@@ -42,7 +39,6 @@ const Movie = ({
   };
 
   const onRemovedFavourite = () => {
-    /* todo добавить сообщение вы точно хотите удалить и удалять из хранилища. */
     dispatch(setRemoveFavourite(imdbID));
 
     message.success(`${title} removed from favourites films`);
