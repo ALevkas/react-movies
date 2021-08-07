@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -21,12 +21,8 @@ const Main = () => {
     isLoaded: movies.isLoaded,
   }));
 
-  const [filterValue, setFilterValue] = useState('');
-
   const getMovies = (nameMovie, filter = '') => {
-    if (!API_KEY || (items?.length && filterValue === filter)) return;
-
-    setFilterValue(filter);
+    if (!API_KEY) return;
 
     dispatch(setLoaded(false));
 
