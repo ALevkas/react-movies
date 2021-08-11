@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Layout, BackTop } from 'antd';
+import { Layout, BackTop, Typography } from 'antd';
 
-import { setMovies, setLoaded } from '../../redux/actions/movies';
+import setMovies from '../../redux/actions/movies';
+
+import MovieService from '../../API/Movie.Service';
+import useFetching from '../../Hooks/useFetching';
 
 import Search from '../../Components/Search/Search';
 import Movies from '../../Components/Movies/Movies';
@@ -12,39 +15,38 @@ import Spinner from '../../Components/Spinner/Spinner';
 
 import styles from './main.module.scss';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 const Main = () => {
   const dispatch = useDispatch();
-  const { items, isLoaded } = useSelector(({ movies }) => ({
+  const { items } = useSelector(({ movies }) => ({
     items: movies.items,
-    isLoaded: movies.isLoaded,
   }));
 
-  const getMovies = (nameMovie, filter = '') => {
-    if (!API_KEY) return;
+  const [url, setUrl] = useState(MovieService.getUrlMovies());
+  const { data, isLoading, error } = useFetching(url);
 
-    dispatch(setLoaded(false));
-
-    axios
-      .get(
-        `https://www.omdbapi.com/?s=${nameMovie || 'wars'}&type=${filter || ''}&apikey=${API_KEY}`,
-      )
-      .then((res) => {
-        const loadingMovies = res.data.Search;
-        dispatch(setMovies(loadingMovies));
-      });
+  const getMovies = async (nameMovie, filter) => {
+    setUrl(MovieService.getUrlMovies(nameMovie, filter));
   };
 
   useEffect(() => {
-    getMovies();
-  }, []);
+    if (data) {
+      dispatch(setMovies(data.Search));
+    }
+  }, [data]);
 
   return (
     <Layout.Content className={styles.container}>
       <Search getMovies={getMovies} />
 
-      {isLoaded ? <Movies movies={items} /> : <Spinner />}
+      {isLoading ? (
+        <Spinner />
+      ) : error ? (
+        <Typography.Title level={2} type="danger">
+          {`Attetion: ${error}`}
+        </Typography.Title>
+      ) : (
+        <Movies movies={items} />
+      )}
       <BackTop />
     </Layout.Content>
   );

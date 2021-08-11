@@ -1,9 +1,6 @@
-export const setMovies = (movies) => ({
+const setMovies = (movies) => ({
   type: 'SET_MOVIES',
   payload: movies,
 });
 
-export const setLoaded = (isLoaded) => ({
-  type: 'SET_LOADED',
-  payload: isLoaded,
-});
+export default setMovies;

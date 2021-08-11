@@ -1,6 +1,5 @@
 const initalMoviesState = {
   items: [],
-  isLoaded: false,
 };
 
 const movies = (state = initalMoviesState, action) => {
@@ -9,13 +8,6 @@ const movies = (state = initalMoviesState, action) => {
       ...state,
       items: action.payload,
       isLoaded: true,
-    };
-  }
-
-  if (action.type === 'SET_LOADED') {
-    return {
-      ...state,
-      isLoaded: action.payload,
     };
   }
 
