@@ -13,7 +13,7 @@ import Search from '../../Components/Search/Search';
 import Movies from '../../Components/Movies/Movies';
 import Spinner from '../../Components/Spinner/Spinner';
 
-import styles from './main.module.scss';
+import styles from './home.module.scss';
 
 const Main = () => {
   const dispatch = useDispatch();
